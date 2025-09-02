@@ -1,0 +1,21 @@
+{
+  "builds": [
+    {
+      "src": "backend/app.py",
+      "use": "@vercel/python"
+    },
+    {
+      "src": "backend/static/index.html",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "backend/static"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "backend/static/index.html"
+    }
+  ]
+}
