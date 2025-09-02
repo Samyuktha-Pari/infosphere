@@ -1,4 +1,3 @@
-# Force Vercel to rebuild
 import requests
 from flask_cors import CORS
 from flask import Flask, request, jsonify, send_from_directory
@@ -69,13 +68,16 @@ def extract_profiles(html, source_url):
     }
 # --- End of Extractor Code ---
 
-# The Flask app is now configured to handle static files from the 'public' folder
-app = Flask(__name__, static_folder="public")
+app = Flask(__name__)
 CORS(app)
 
 @app.route("/")
 def index():
-    return send_from_directory("public", "index.html")
+    return send_from_directory(os.path.join(os.getcwd(), 'public'), 'index.html')
+# New route to serve static files from the public folder
+@app.route("/<path:filename>")
+def public_files(filename):
+    return send_from_directory("public", filename)
 
 @app.route("/api/extract", methods=["POST"])
 def extract():
