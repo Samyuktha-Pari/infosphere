@@ -1,10 +1,10 @@
-# Force Vercel to rebuild
 import requests
 from flask_cors import CORS
 from flask import Flask, request, jsonify, send_from_directory
 from bs4 import BeautifulSoup
 import re
 from urllib.parse import urlparse
+import os
 
 # --- Start of Extractor Code (Combined from extractor.py) ---
 def extract_profiles(html, source_url):
@@ -68,21 +68,19 @@ def extract_profiles(html, source_url):
     }
 # --- End of Extractor Code ---
 
-# The Flask app must be defined before any of the routes
 app = Flask(__name__)
 CORS(app)
 
-# This new route will serve your index.html file from the public folder
 @app.route("/")
 def index():
-    return send_from_directory("public", "index.html")
+    return send_from_directory(os.path.join(os.getcwd(), 'public'), 'index.html')
 
 @app.route("/api/extract", methods=["POST"])
 def extract():
     data = request.json
     urls = data.get("urls", [])
     results = []
-
+    
     for url in urls:
         try:
             res = requests.get(url, timeout=10, headers={"User-Agent": "Mozilla/5.0"})
