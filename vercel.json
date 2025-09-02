@@ -3,20 +3,13 @@
   "builds": [
     {
       "src": "api/app.py",
-      "use": "@vercel/python",
-      "config": {
-        "workdirectory": "api",
-        "includeFiles": [
-          "api/extractor.py",
-          "api/requirements.txt"
-        ]
-      }
+      "use": "@vercel/python"
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "/api/app.py"
+      "dest": "api/app.py"
     }
   ]
 }
