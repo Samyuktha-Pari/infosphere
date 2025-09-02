@@ -1,21 +1,8 @@
 {
-  "builds": [
+  "rewrites": [
     {
-      "src": "backend/app.py",
-      "use": "@vercel/python",
-      "config": {
-        "workdirectory": "backend"
-      }
-    }
-  ],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "backend/app.py"
-    },
-    {
-      "src": "/static/(.*)",
-      "dest": "backend/static/$1"
+      "source": "/(.*)",
+      "destination": "/api/app.py"
     }
   ]
 }
