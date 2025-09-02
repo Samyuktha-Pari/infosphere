@@ -4,7 +4,11 @@
       "src": "api/app.py",
       "use": "@vercel/python",
       "config": {
-        "workdirectory": "api"
+        "workdirectory": "api",
+        "includeFiles": [
+          "extractor.py",
+          "requirements.txt"
+        ]
       }
     }
   ],
