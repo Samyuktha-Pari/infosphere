@@ -69,25 +69,20 @@ def extract_profiles(html, source_url):
     }
 # --- End of Extractor Code ---
 
-app = Flask(__name__)
+# The Flask app is now configured to handle static files from the 'public' folder
+app = Flask(__name__, static_folder="public")
 CORS(app)
 
-# This route serves the main page (index.html)
 @app.route("/")
 def index():
     return send_from_directory("public", "index.html")
-
-# This route serves all other static files from the 'public' directory
-@app.route("/<path:filename>")
-def public_files(filename):
-    return send_from_directory("public", filename)
 
 @app.route("/api/extract", methods=["POST"])
 def extract():
     data = request.json
     urls = data.get("urls", [])
     results = []
-
+    
     for url in urls:
         try:
             res = requests.get(url, timeout=10, headers={"User-Agent": "Mozilla/5.0"})
