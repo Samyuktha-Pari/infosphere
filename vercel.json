@@ -1,4 +1,5 @@
 {
+  "version": 2,
   "builds": [
     {
       "src": "api/app.py",
@@ -6,8 +7,8 @@
       "config": {
         "workdirectory": "api",
         "includeFiles": [
-          "extractor.py",
-          "requirements.txt"
+          "api/extractor.py",
+          "api/requirements.txt"
         ]
       }
     }
