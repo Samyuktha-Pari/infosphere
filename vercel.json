@@ -1,16 +1,8 @@
 {
-  "version": 2,
   "builds": [
     {
       "src": "api/app.py",
-      "use": "@vercel/python",
-      "config": {
-        "workdirectory": "api",
-        "includeFiles": [
-          "extractor.py",
-          "requirements.txt"
-        ]
-      }
+      "use": "@vercel/python"
     }
   ],
   "routes": [
