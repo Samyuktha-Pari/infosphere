@@ -1,4 +1,3 @@
-# Force Vercel to rebuild
 import requests
 from flask_cors import CORS
 from flask import Flask, request, jsonify, send_from_directory
@@ -72,22 +71,16 @@ def extract_profiles(html, source_url):
 app = Flask(__name__)
 CORS(app)
 
-# This route serves the main page (index.html)
 @app.route("/")
 def index():
-    return send_from_directory("public", "index.html")
-
-# This route serves all other static files from the 'public' directory
-@app.route("/<path:filename>")
-def public_files(filename):
-    return send_from_directory("public", filename)
+    return send_from_directory(os.path.join(os.getcwd(), 'public'), 'index.html')
 
 @app.route("/api/extract", methods=["POST"])
 def extract():
     data = request.json
     urls = data.get("urls", [])
     results = []
-
+    
     for url in urls:
         try:
             res = requests.get(url, timeout=10, headers={"User-Agent": "Mozilla/5.0"})
